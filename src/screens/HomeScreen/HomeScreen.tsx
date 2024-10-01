@@ -5,12 +5,14 @@ import Feed from "./patterns/Feed/Feed";
 import Footer from "./patterns/Footer/Footer";
 import Menu from "./patterns/Menu/Menu";
 import {templatePageHOC} from "@src/services/templates/templatePageHOC";
-import {useTemplateConfig} from "@src/services/templates/TemplateConfigContext";
-import {PostsService} from "@src/services/posts/PostsService";
+import type { Post } from "@src/services/posts/PostsService";
 
-function HomeScreen() {
+interface HomeScreenProps {
+  posts: Post[]
+}
+
+function HomeScreen({posts}: HomeScreenProps) {
   const theme = useTheme();
-  const posts = await PostsService().getAll()
 
   return (
     <Box
@@ -25,6 +27,7 @@ function HomeScreen() {
       <Menu />
       <Feed>
         <Feed.Header />
+        <Feed.Posts posts={posts} />
       </Feed>
       <Footer />
       {/* 
